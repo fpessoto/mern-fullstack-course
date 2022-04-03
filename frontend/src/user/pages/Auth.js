@@ -8,9 +8,8 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
-
-import { AuthContext } from "../../shared/context/auth-context";
 import { useForm } from "../../shared/hooks/form-hook";
+import { AuthContext } from "../../shared/context/auth-context";
 import "./Auth.css";
 
 const Auth = () => {
@@ -34,7 +33,10 @@ const Auth = () => {
   const switchModeHandler = () => {
     if (!isLoginMode) {
       setFormData(
-        { ...formState.inputs, name: undefined },
+        {
+          ...formState.inputs,
+          name: undefined,
+        },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
     } else {
@@ -43,7 +45,7 @@ const Auth = () => {
           ...formState.inputs,
           name: {
             value: "",
-            isValid: "",
+            isValid: false,
           },
         },
         false
@@ -60,7 +62,7 @@ const Auth = () => {
 
   return (
     <Card className="authentication">
-      <h2>Login Required!</h2>
+      <h2>Login Required</h2>
       <hr />
       <form onSubmit={authSubmitHandler}>
         {!isLoginMode && (
@@ -78,9 +80,9 @@ const Auth = () => {
           element="input"
           id="email"
           type="email"
-          label="E-mail"
+          label="E-Mail"
           validators={[VALIDATOR_EMAIL()]}
-          errorText="Please enter a valid email adress."
+          errorText="Please enter a valid email address."
           onInput={inputHandler}
         />
         <Input
